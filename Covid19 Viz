@@ -1,0 +1,30 @@
+select *
+from CovidDeathSept$
+order by date
+
+select *
+from CovidVaccinationSept$
+--where location = 'malaysia'
+order by date
+
+-- country population
+Select Location, Population
+From CovidDeathSept$
+Where continent is not null
+and location not in ('World', 'European Union', 'International')
+Group by Location, Population
+
+-- registered daily cases
+select convert(varchar, date,111) as new_date, location, total_cases
+from CovidDeathSept$
+Where continent is not null
+and location not in ('World', 'European Union', 'International')
+order by location, new_date, total_cases
+
+--registered vaccination
+select convert(varchar, date,111) as new_date, location, people_vaccinated as dose_1, people_fully_vaccinated as dose_2
+from CovidVaccinationSept$
+Where continent is not null
+and location not in ('World', 'European Union', 'International')
+--and location = 'Malaysia'
+order by location, new_date
